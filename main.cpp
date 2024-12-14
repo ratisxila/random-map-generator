@@ -12,19 +12,19 @@ void printCords(vector<pair<int, int>> rooms, vector<pair<int, int>> cords)
 {
     for (int i = 0; i < rooms.size(); i++)
     {
-        cout << "{x: " << cords[i].second << ", y: " << cords[i].first << ", " << "height: " << rooms[i].first << ", length: " << rooms[i].second << "}," << endl;
+        cout << "{x: " << cords[i].second << ", y: " << cords[i].first << ", " << "height: " << rooms[i].first << ", length: " << rooms[i].second << "}," << "\n";
     }
 
-    cout << endl
-         << endl
-         << endl;
+    cout << "\n"
+         << "\n"
+         << "\n";
 }
 
 void printMap(vector<vector<char>> map)
 {
     for (int i = map.size() - 1; i > -1; i--)
     {
-        cout << endl;
+        cout << "\n";
 
         if (i < 10)
             cout << '0';
@@ -35,7 +35,7 @@ void printMap(vector<vector<char>> map)
             cout << map[i][j];
     }
 
-    cout << endl;
+    cout << "\n";
 }
 
 void printPaths(vector<pair<int, int>> paths)
@@ -45,9 +45,9 @@ void printPaths(vector<pair<int, int>> paths)
         cout << paths[i].first + 1 << ":" << paths[i].second + 1 << "  ";
     }
 
-    cout << endl
-         << endl
-         << endl;
+    cout << "\n"
+         << "\n"
+         << "\n";
 }
 
 vector<vector<char>> putRoomsToMap(vector<pair<int, int>> rooms, vector<pair<int, int>> cords, int maxRight, int maxUp)
@@ -138,7 +138,7 @@ void makePaths(vector<pair<int, int>> rooms, vector<pair<int, int>> cords, vecto
         makePath(middle1, middle2, map);
     }
 
-    cout << endl;
+    cout << "\n";
 }
 
 pair<int, int> randomRectangle()
@@ -245,11 +245,8 @@ void placeRectangle(vector<pair<int, int>> &rooms, vector<pair<int, int>> &cords
     }
 }
 
-void BuildRandomRooms(int amount)
+vector<vector<char>> BuildRandomRooms(int amount, vector<pair<int, int>> &rooms, vector<pair<int, int>> &cords)
 {
-    vector<pair<int, int>> rooms;
-
-    vector<pair<int, int>> cords;
 
     vector<pair<int, int>> paths;
 
@@ -272,16 +269,24 @@ void BuildRandomRooms(int amount)
     printCords(rooms, cords);
     printPaths(paths);
     printMap(map);
+
+    return map;
 }
 
-void buildMap()
+vector<vector<char>> buildMap(vector<pair<int, int>> &rooms, vector<pair<int, int>> &cords)
 {
-    BuildRandomRooms(9 - dist2(gen));
+    vector<vector<char>> map = BuildRandomRooms(9 - dist2(gen), rooms, cords);
+
+    return map;
 }
 
 int main()
 {
-    buildMap();
+    vector<pair<int, int>> rooms; // first - hight,  second - length
+
+    vector<pair<int, int>> cords;  // first - y, second - x
+
+    vector<vector<char>> map = buildMap(rooms, cords);
 
     cout << "end";
 }
